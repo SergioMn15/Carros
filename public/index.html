@@ -1,4 +1,57 @@
-async function cargarReportes() {
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control | Mantenimiento de Flota</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">🛠️ Sistema de Mantenimiento - Fase 2</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body bg-white rounded">
+                        <h4 class="card-title text-indigo">Reportes Recientes</h4>
+                        <p class="text-muted">Lista de fallas capturadas vía QR y GPS</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover mt-3">
+                                <thead class="table-indigo">
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Unidad (Placa)</th>
+                                        <th>Descripción de Falla</th>
+                                        <th>Coordenadas</th>
+                                        <th>Firma</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-reportes">
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4">
+                                            <div class="spinner-border text-primary" role="status"></div>
+                                            <p class="mt-2">Esperando datos del servidor...</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       async function cargarReportes() {
     const tabla = document.getElementById('tabla-reportes');
     try {
         const response = await fetch('/api/reporte');
@@ -18,3 +71,6 @@ async function cargarReportes() {
     }
 }
 cargarReportes();
+    </script>
+</body>
+</html>
