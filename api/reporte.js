@@ -1,26 +1,26 @@
 export default function handler(req, res) {
-    // 1. Cabeceras para que Flutter no tenga problemas de permisos (CORS)
+    // Cabeceras de seguridad para permitir conexión desde Flutter (CORS)
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    // 2. Manejo de peticiones de prueba (Pre-flight)
+    // Responder rápido a la prueba de conexión (Pre-flight)
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
 
-    // 3. Manejo del POST (Lo que manda Flutter)
     if (req.method === 'POST') {
+        // Vercel ya parsea el body automáticamente si envías JSON
         const data = req.body;
-        console.log("Datos recibidos:", data);
+        console.log("Reporte recibido:", data);
 
         return res.status(201).json({
-            id: Date.now(),
+            id: "ID-" + Math.floor(Math.random() * 1000),
             status: "success",
-            mensaje: "Reporte recibido en Vercel"
+            mensaje: "Reporte guardado con éxito"
         });
     }
 
-    // 4. Si intentas entrar por el navegador (GET)
-    res.status(200).json({ mensaje: "API activa. Envía un POST para registrar datos." });
+    // Respuesta por defecto para el navegador
+    res.status(200).json({ mensaje: "API de Carros lista. Envía un POST desde la App." });
 }
