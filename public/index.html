@@ -1,85 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control | Mantenimiento de Flota</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-light">
+async function cargarReportes() {
+    const tabla = document.getElementById('tabla-reportes');
+    try {
+        const response = await fetch('/api/reporte');
+        const datos = await response.json();
 
-    <nav class="navbar navbar-dark bg-dark mb-4">
-        <div class="container">
-            <span class="navbar-brand mb-0 h1">🛠️ Sistema de Mantenimiento - Fase 2</span>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body bg-white rounded">
-                        <h4 class="card-title text-indigo">Reportes Recientes</h4>
-                        <p class="text-muted">Lista de fallas capturadas vía QR y GPS</p>
-                        
-                        <div class="table-responsive">
-                            <table class="table table-hover mt-3">
-                                <thead class="table-indigo">
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Unidad (Placa)</th>
-                                        <th>Descripción de Falla</th>
-                                        <th>Coordenadas</th>
-                                        <th>Firma</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tabla-reportes">
-                                    <tr>
-                                        <td colspan="5" class="text-center py-4">
-                                            <div class="spinner-border text-primary" role="status"></div>
-                                            <p class="mt-2">Esperando datos del servidor...</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Esta función simula la carga de datos. 
-        // Para que sea real, deberás hacer un fetch() a tu API de Vercel una vez tengas BD.
-        async function cargarReportes() {
-            const tabla = document.getElementById('tabla-reportes');
-            // Simulación de datos para la demo de tu entrega
-            const data = [
-                {
-                    fecha: new Date().toLocaleDateString(),
-                    placa: "RUCA-2026",
-                    falla: "Falla en frenos delanteros",
-                    gps: "19.2433, -103.7256",
-                    firma: "✅ Capturada"
-                }
-            ];
-
-            setTimeout(() => {
-                tabla.innerHTML = data.map(r => `
-                    <tr>
-                        <td>${r.fecha}</td>
-                        <td><span class="badge bg-primary">${r.placa}</span></td>
-                        <td>${r.falla}</td>
-                        <td><small class="text-muted">${r.gps}</small></td>
-                        <td class="text-success fw-bold">${r.firma}</td>
-                    </tr>
-                `).join('');
-            }, 1500);
-        }
-
-        cargarReportes();
-    </script>
-</body>
-</html>
+        tabla.innerHTML = datos.map(r => `
+            <tr>
+                <td>${new Date(r.fecha).toLocaleString()}</td>
+                <td><span class="badge bg-primary">${r.placa}</span></td>
+                <td>${r.falla}</td>
+                <td>${r.ubicacion}</td>
+                <td class="text-success fw-bold">✅ Recibido</td>
+            </tr>
+        `).join('');
+    } catch (e) {
+        tabla.innerHTML = "<tr><td colspan='5'>Error al cargar datos</td></tr>";
+    }
+}
+cargarReportes();
