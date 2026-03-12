@@ -8,13 +8,12 @@ export default function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-        const data = req.body;
         return res.status(201).json({
-            id: Math.floor(Math.random() * 1000),
+            id: Date.now(),
             status: "success",
-            mensaje: "Reporte recibido"
+            mensaje: "Reporte recibido correctamente"
         });
     }
 
-    res.status(200).json({ mensaje: "API activa" });
+    return res.status(200).json({ mensaje: "API activa" });
 }

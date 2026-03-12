@@ -1,8 +1,8 @@
 {
   "name": "carros-backend",
   "version": "1.0.0",
-  "scripts": {
-    "start": "node api/reporte.js"
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {}
 }
