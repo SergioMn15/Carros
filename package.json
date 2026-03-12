@@ -1,9 +1,11 @@
 {
   "name": "carros-backend",
   "version": "1.0.0",
+  "main": "api/reporte.js",
   "engines": {
     "node": "20.x"
   },
-  "main": "api/reporte.js",
-  "dependencies": {}
+  "dependencies": {
+    "@vercel/postgres": "^0.5.1"
+  }
 }
