@@ -1,0 +1,46 @@
+/* Variables de color para que combine con Flutter */
+:root {
+    --indigo-dark: #1A237E;
+    --indigo-light: #3949AB;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background-color: var(--indigo-dark) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.text-indigo {
+    color: var(--indigo-dark);
+    font-weight: 700;
+}
+
+.table-indigo {
+    background-color: var(--indigo-light);
+    color: white;
+}
+
+.table-indigo th {
+    font-weight: 500;
+    border: none;
+}
+
+.card {
+    transition: transform 0.2s;
+    border-radius: 12px;
+}
+
+.badge {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* Estilo para las filas de la tabla */
+#tabla-reportes tr td {
+    vertical-align: middle;
+    padding: 15px;
+}
